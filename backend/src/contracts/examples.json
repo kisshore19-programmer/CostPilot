@@ -1,0 +1,62 @@
+{
+  "healthy": {
+    "incomeMonthly": 5000,
+    "rentMonthly": 1400,
+    "utilitiesMonthly": 250,
+    "transportMonthly": 400,
+    "foodMonthly": 800,
+    "debtMonthly": 200,
+    "subscriptionsMonthly": 80,
+    "savingsBalance": 20000
+  },
+  "tight": {
+    "incomeMonthly": 3500,
+    "rentMonthly": 1600,
+    "utilitiesMonthly": 250,
+    "transportMonthly": 450,
+    "foodMonthly": 900,
+    "debtMonthly": 400,
+    "subscriptionsMonthly": 120,
+    "savingsBalance": 1500
+  },
+  "bad": {
+    "incomeMonthly": 3000,
+    "rentMonthly": 1700,
+    "utilitiesMonthly": 280,
+    "transportMonthly": 500,
+    "foodMonthly": 900,
+    "debtMonthly": 350,
+    "subscriptionsMonthly": 150,
+    "savingsBalance": 500
+  },
+  "zeroIncome": {
+    "incomeMonthly": 0,
+    "rentMonthly": 1200,
+    "utilitiesMonthly": 200,
+    "transportMonthly": 300,
+    "foodMonthly": 600,
+    "debtMonthly": 100,
+    "subscriptionsMonthly": 50,
+    "savingsBalance": 500
+  },
+  "zeroExpenses": {
+    "incomeMonthly": 3000,
+    "rentMonthly": 0,
+    "utilitiesMonthly": 0,
+    "transportMonthly": 0,
+    "foodMonthly": 0,
+    "debtMonthly": 0,
+    "subscriptionsMonthly": 0,
+    "savingsBalance": 1000
+  },
+  "rentHeavy": {
+    "incomeMonthly": 4000,
+    "rentMonthly": 2200,
+    "utilitiesMonthly": 200,
+    "transportMonthly": 250,
+    "foodMonthly": 600,
+    "debtMonthly": 150,
+    "subscriptionsMonthly": 50,
+    "savingsBalance": 3000
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "MonthlyInputs": {
+    "incomeMonthly": "number",
+    "rentMonthly": "number",
+    "utilitiesMonthly": "number",
+    "transportMonthly": "number",
+    "foodMonthly": "number",
+    "debtMonthly": "number",
+    "subscriptionsMonthly": "number",
+    "savingsBalance": "number"
+  },
+  "StressResult": {
+    "stressScore": "0-100",
+    "riskLevel": "Low|Moderate|High",
+    "expenseRatio": "number",
+    "bufferMonths": "number",
+    "debtRatio": "number",
+    "pressureSources": "string[]"
+  },
+  "ScenarioResult": {
+    "base": "StressResult",
+    "after": "StressResult",
+    "delta": {
+      "stressScore": "number",
+      "monthlyBalance": "number",
+      "survivalMonths": "number"
+    }
+  }
+}

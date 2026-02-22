@@ -1,0 +1,12 @@
+{
+  "ExplainRequest": {
+    "type": "string (stress|scenario|optimize)",
+    "facts": "object"
+  },
+  "ExplainResponse": {
+    "headline": "string",
+    "reason": "string",
+    "tradeoff": "string",
+    "confidence": "number (0-100)"
+  }
+}
