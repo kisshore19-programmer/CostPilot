@@ -233,11 +233,11 @@ const EVComparisonModal: React.FC<EVComparisonModalProps> = ({ isOpen, onClose, 
                                             </div>
                                             <div>
                                                 <p className="text-xs text-slate-500 uppercase mb-1">Charging/mo</p>
-                                                <p className="text-sm font-bold text-emerald-400">RM{ev.monthly_charging_cost}</p>
+                                                <p className="text-sm font-bold text-emerald-400">RM{ev.monthly_charging_cost?.toFixed(2)}</p>
                                             </div>
                                             <div>
                                                 <p className="text-xs text-slate-500 uppercase mb-1">Savings/mo</p>
-                                                <p className="text-sm font-bold text-emerald-400">+RM{ev.monthly_savings_vs_petrol?.toFixed(0)}</p>
+                                                <p className="text-sm font-bold text-emerald-400">+RM{ev.monthly_savings_vs_petrol?.toFixed(2)}</p>
                                             </div>
                                         </div>
 
@@ -247,7 +247,7 @@ const EVComparisonModal: React.FC<EVComparisonModalProps> = ({ isOpen, onClose, 
                                                     <div className="bg-[#0d0820] rounded-xl p-4 text-center">
                                                         <DollarSign className="mx-auto text-emerald-400 mb-1.5" size={18} />
                                                         <p className="text-xs text-slate-500 uppercase mb-1">Yearly Savings</p>
-                                                        <p className="text-base font-black text-emerald-400">RM{ev.yearly_savings_vs_petrol?.toFixed(0)}</p>
+                                                        <p className="text-base font-black text-emerald-400">RM{ev.yearly_savings_vs_petrol?.toFixed(2)}</p>
                                                     </div>
                                                     <div className="bg-[#0d0820] rounded-xl p-4 text-center">
                                                         <Calendar className="mx-auto text-blue-400 mb-1.5" size={18} />

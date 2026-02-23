@@ -264,8 +264,10 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
   // Calculate applied lifestyle savings by category
   const lifestyleSavingsByCategory: Record<string, number> = {};
   (userProfile.appliedLifestyleOptimizations || []).forEach(opt => {
-    const cat = opt.category.toLowerCase();
-    lifestyleSavingsByCategory[cat] = (lifestyleSavingsByCategory[cat] || 0) + opt.monthlySavings;
+    const cat = opt.category.toLowerCase().trim();
+    // Normalize transportation to transport
+    const normalizedCat = cat === 'transportation' ? 'transport' : cat;
+    lifestyleSavingsByCategory[normalizedCat] = (lifestyleSavingsByCategory[normalizedCat] || 0) + opt.monthlySavings;
   });
   const totalLifestyleSavings = Object.values(lifestyleSavingsByCategory).reduce((a, b) => a + b, 0);
 
@@ -275,7 +277,14 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
     ...strategySegments,
     { label: 'GENERAL SAVINGS', value: userProfile.savings || 0, color: '#ec4899' },
     { label: 'HOUSING', value: Math.max(0, (userProfile.rent || 0) - (lifestyleSavingsByCategory['housing'] || 0)), color: '#f97316' },
-    { label: 'TRANSPORT', value: Math.max(0, (userProfile.transportCost || 0) - (lifestyleSavingsByCategory['transport'] || 0)), color: '#10b981' },
+    {
+      label: 'TRANSPORT',
+      value: Math.max(0, (userProfile.transportCost || 0) - (lifestyleSavingsByCategory['transport'] || 0)),
+      color: '#10b981',
+      description: (lifestyleSavingsByCategory['transport'] || 0) > 0
+        ? `RM${(userProfile.transportCost || 0).toFixed(2)} budget - RM${lifestyleSavingsByCategory['transport'].toFixed(2)} optimized savings`
+        : undefined
+    },
     { label: 'FOOD', value: Math.max(0, (userProfile.food || 0) - (lifestyleSavingsByCategory['food'] || 0)), color: '#eab308' },
     { label: 'UTILITIES', value: Math.max(0, (userProfile.utilities || 0) - (lifestyleSavingsByCategory['utilities'] || 0)), color: '#8b5cf6' },
     { label: 'DEBT', value: userProfile.debt || 0, color: '#ef4444' },

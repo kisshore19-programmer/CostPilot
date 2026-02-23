@@ -40,29 +40,9 @@ app.use("/wealth", wealthRouter);
 
 const PORT = process.env.PORT || 3001;
 
-// #region agent log
-// Log startup attempt
-try {
-  const logPath = path.resolve(__dirname, '../../../.cursor/debug-9cfd23.log');
-  const logEntry = JSON.stringify({ sessionId: '9cfd23', location: 'app.js:39', message: 'Backend attempting to start', data: { port: PORT, envPort: process.env.PORT, dirname: __dirname }, timestamp: Date.now(), runId: 'run1', hypothesisId: 'A,B' }) + '\n';
-  fs.appendFileSync(logPath, logEntry);
-} catch (e) {
-  console.error('[DEBUG] Failed to write startup log', e);
-}
-// #endregion
-
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
-  // #region agent log
-  console.log('[DEBUG] Backend server started', { port: PORT, envPort: process.env.PORT });
-  try {
-    const logPath = path.resolve(__dirname, '../../../.cursor/debug-9cfd23.log');
-    const logEntry = JSON.stringify({ sessionId: '9cfd23', location: 'app.js:50', message: 'Backend server started successfully', data: { port: PORT, envPort: process.env.PORT }, timestamp: Date.now(), runId: 'run1', hypothesisId: 'A' }) + '\n';
-    fs.appendFileSync(logPath, logEntry);
-  } catch (e) {
-    console.error('[DEBUG] Failed to write log file', e);
-  }
-  // #endregion
 });
+
 
 // Nodemon restart trigger

@@ -34,6 +34,18 @@ const AccommodationSection: React.FC<AccommodationSectionProps> = ({ userProfile
     const [error, setError] = useState<string | null>(null);
     const [selectedOption, setSelectedOption] = useState<number>(0);
 
+    // Calculate applied savings for display
+    const lifestyleSavingsByCategory: Record<string, number> = {};
+    (userProfile.appliedLifestyleOptimizations || []).forEach(opt => {
+        const cat = opt.category.toLowerCase().trim();
+        const normalizedCat = cat === 'transportation' ? 'transport' : cat;
+        lifestyleSavingsByCategory[normalizedCat] = (lifestyleSavingsByCategory[normalizedCat] || 0) + opt.monthlySavings;
+    });
+
+    const netRent = (userProfile.rent || 0) - (lifestyleSavingsByCategory['housing'] || 0);
+    const netTransport = (userProfile.transportCost || 0) - (lifestyleSavingsByCategory['transport'] || 0);
+    const netIncome = (userProfile.income || 0); // Income itself doesn't change, but we show it as comparison
+
     const handleDecline = () => {
         onDeclineRelocate();
     };
@@ -165,16 +177,24 @@ const AccommodationSection: React.FC<AccommodationSectionProps> = ({ userProfile
                         {/* Current profile stats */}
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             <div className="bg-[#120b22] rounded-xl p-4 border border-white/5">
-                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Current Rent</p>
-                                <p className="text-xl font-black text-white">RM{userProfile.rent || 0}</p>
+                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">
+                                    {(lifestyleSavingsByCategory['housing'] || 0) > 0 ? 'Net Rent (Optimized)' : 'Current Rent'}
+                                </p>
+                                <p className={`text-xl font-black ${(lifestyleSavingsByCategory['housing'] || 0) > 0 ? 'text-emerald-400' : 'text-white'}`}>
+                                    RM{netRent.toFixed(2)}
+                                </p>
                             </div>
                             <div className="bg-[#120b22] rounded-xl p-4 border border-white/5">
-                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Transport Cost</p>
-                                <p className="text-xl font-black text-white">RM{userProfile.transportCost || 0}</p>
+                                <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">
+                                    {(lifestyleSavingsByCategory['transport'] || 0) > 0 ? 'Net Transport (Optimized)' : 'Transport Cost'}
+                                </p>
+                                <p className={`text-xl font-black ${(lifestyleSavingsByCategory['transport'] || 0) > 0 ? 'text-emerald-400' : 'text-white'}`}>
+                                    RM{netTransport.toFixed(2)}
+                                </p>
                             </div>
                             <div className="bg-[#120b22] rounded-xl p-4 border border-white/5">
                                 <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Monthly Income</p>
-                                <p className="text-xl font-black text-white">RM{userProfile.income || 0}</p>
+                                <p className="text-xl font-black text-white">RM{(userProfile.income || 0).toFixed(2)}</p>
                             </div>
                         </div>
                     </div>
@@ -273,11 +293,11 @@ const AccommodationSection: React.FC<AccommodationSectionProps> = ({ userProfile
                                     </div>
                                     <div>
                                         <p className="text-xs text-slate-500 uppercase mb-1">Monthly Savings</p>
-                                        <p className="text-sm font-bold text-emerald-400">RM{Math.abs(opt.estimated_total_monthly_savings || 0)}</p>
+                                        <p className="text-sm font-bold text-emerald-400">RM{Math.abs(opt.estimated_total_monthly_savings || 0).toFixed(2)}</p>
                                     </div>
                                     <div>
                                         <p className="text-xs text-slate-500 uppercase mb-1">Yearly Savings</p>
-                                        <p className="text-sm font-bold text-emerald-400">RM{Math.abs(opt.estimated_yearly_savings || 0)}</p>
+                                        <p className="text-sm font-bold text-emerald-400">RM{Math.abs(opt.estimated_yearly_savings || 0).toFixed(2)}</p>
                                     </div>
                                 </div>
 
@@ -290,12 +310,12 @@ const AccommodationSection: React.FC<AccommodationSectionProps> = ({ userProfile
                                             <div className="bg-[#0d0820] rounded-xl p-4 border border-emerald-500/10">
                                                 <DollarSign className="text-emerald-400 mb-2" size={18} />
                                                 <p className="text-xs text-slate-500 uppercase mb-1">Rent Savings</p>
-                                                <p className="text-lg font-black text-emerald-400">RM{Math.abs(opt.rent_savings_vs_current || 0)}/mo</p>
+                                                <p className="text-lg font-black text-emerald-400">RM{Math.abs(opt.rent_savings_vs_current || 0).toFixed(2)}/mo</p>
                                             </div>
                                             <div className="bg-[#0d0820] rounded-xl p-4 border border-blue-500/10">
                                                 <TrendingDown className="text-blue-400 mb-2" size={18} />
                                                 <p className="text-xs text-slate-500 uppercase mb-1">Transport Savings</p>
-                                                <p className="text-lg font-black text-blue-400">RM{Math.abs(opt.transport_savings_vs_current || 0)}/mo</p>
+                                                <p className="text-lg font-black text-blue-400">RM{Math.abs(opt.transport_savings_vs_current || 0).toFixed(2)}/mo</p>
                                             </div>
                                         </div>
 

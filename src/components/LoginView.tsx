@@ -259,7 +259,7 @@ const LoginView: React.FC = () => {
                             </div>
                         </div>
                         <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium mb-8">
-                            Meet <span className="font-semibold font-logo text-slate-900 dark:text-white">CostPilot</span>, Your AI Cost-of-Living Navigator.
+                            Meet <span className="font-semibold font-logo text-slate-900 dark:text-white">CostPilot</span>, Your Intelligent Financial Navigator.
                         </p>
                     </div>
 

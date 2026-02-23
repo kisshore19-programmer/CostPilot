@@ -25,39 +25,39 @@ Use the following Reference Matrix to determine the best strategy based on Timel
 
 🟢 SHORT-TERM — LOW RISK
 Objective: Capital preservation + high liquidity
-Typical Allocation: 80–95% savings, 5–20% dividend stocks
-Savings Options: GXBank, Touch 'n Go eWallet (GO+), AEON Bank, Maybank Fixed Deposit, Public Bank Fixed Deposit
-Investment Options: Malayan Banking Berhad, Public Bank Berhad, Tenaga Nasional Berhad, Telekom Malaysia Berhad, Petronas Chemicals Group Berhad
-
+Typical Allocation: 70–85% savings, 15–30% safe investments (Fixed-Price ASNB)
+Savings Options: GXBank, TNG GO+, AEON Bank, Boost Bank, Rize
+Investment Options: ASNB (ASM, ASB, ASB2, ASM3), Malayan Banking Berhad, Public Bank Berhad, Tenaga Nasional Berhad
+ 
 🟡 SHORT-TERM — MEDIUM RISK
 Objective: Moderate growth with liquidity buffer
-Typical Allocation: 50–70% savings, 30–50% dividend/ETF
-Savings Options: GXBank, Touch 'n Go GO+, CIMB FD, Hong Leong Bank FD, FSMOne Malaysia Money Market Fund
-Investment Options: Malayan Banking Berhad, Tenaga Nasional Berhad, Axiata Group Berhad, MyETF FTSE Bursa Malaysia KLCI, MyETF Dow Jones Islamic Market Malaysia Titans 25
-
+Typical Allocation: 40–60% savings, 40–60% balanced assets
+Savings Options: GXBank, TNG GO+, KDI Save, FSMOne Money Market
+Investment Options: ASNB (ASM/ASB), ASNB (ASN Sara 1/2 - Variable), MyETF FTSE Bursa Malaysia KLCI, Sunway REIT
+ 
 🔴 SHORT-TERM — HIGH RISK
 Objective: Maximize short-term upside (high volatility)
 Typical Allocation: 20–40% savings, 60–80% equities/ETF
-Savings Options: GXBank, CIMB FD, Maybank FD, RHB Bank FD, FSMOne Money Market Fund
-Investment Options: Inari Amertron Berhad, Greatech Technology Berhad, Press Metal Aluminium Holdings Berhad, Gamuda Berhad, MyETF FTSE Bursa Malaysia KLCI
-
+Savings Options: GXBank, FSMOne Money Market, KDI Save
+Investment Options: ASNB (ASN Equity 2/3/5 - Variable), Inari Amertron, Greatech Technology, Gamuda Berhad, MyETF KLCI
+ 
 🟢 LONG-TERM — LOW RISK
 Objective: Steady growth, low volatility
-Typical Allocation: 60–80% conservative income assets, 20–40% dividend stocks
-Savings Options: EPF voluntary contribution, Principal Malaysia Bond Fund, Public Mutual Bond Fund, Maybank FD ladder strategy, Kenanga Investors Conservative Fund
-Investment Options: Malayan Banking Berhad, Public Bank Berhad, Tenaga Nasional Berhad, Telekom Malaysia Berhad, IHH Healthcare Berhad
-
+Typical Allocation: 50–70% conservative income assets, 30–50% stable growth
+Savings Options: EPF voluntary contribution, Principal Bond Fund, Public Mutual Bond, Kenanga Conservative
+Investment Options: ASNB (ASM/ASB/ASM2/ASM3), ASNB (ASN Sukuk), Public Bank Berhad, IHH Healthcare
+ 
 🟡 LONG-TERM — MEDIUM RISK
 Objective: Balanced growth + income
 Typical Allocation: 40–60% growth, 40–60% stable assets
-Savings Options: EPF, Principal Bond Fund, Public Mutual Balanced Fund, FSMOne Money Market, Kenanga Balanced Fund
-Investment Options: MyETF FTSE Bursa Malaysia KLCI, MyETF Dow Jones Islamic Titans 25, StashAway, Wahed Invest, Press Metal Aluminium Holdings
-
+Savings Options: EPF, Principal Balanced, FSMOne, Kenanga Balanced
+Investment Options: ASNB (ASN Sara Global), ASNB (ASN Equity Malaysia), Press Metal, StashAway (Balanced)
+ 
 🔴 LONG-TERM — HIGH RISK
 Objective: Maximum capital appreciation
 Typical Allocation: 10–30% liquidity buffer, 70–90% equities/global ETFs
-Savings Options: EPF minimum, Money Market Fund, Maybank FD, GXBank, CIMB Savings
-Investment Options: Inari Amertron Berhad, Greatech Technology Berhad, Gamuda Berhad, StashAway global portfolio, Interactive Brokers (global ETFs access)
+Savings Options: EPF minimum, Money Market Fund, GXBank
+Investment Options: ASNB (ASN Equity Global), Inari Amertron, Gamuda Berhad, StashAway (Aggressive), S&P 500 ETFs
 
 Based on the parameters, you MUST:
 1. Detect timeline
@@ -66,77 +66,82 @@ Based on the parameters, you MUST:
 4. Allocate weights dynamically according to the "Typical Allocation" bounds. Ensure they total exactly 100.
 5. For 'Savings Options', do NOT just copy the matrix. Independently search your knowledge for 5 REAL, active Savings Options or Digital Banks in Malaysia (e.g., GXBank, AEON Bank, Boost Bank, Rize, etc.) that fit the category. CRITICAL: Avoid recommending "Fixed Deposits" (FD) - focus exclusively on high-interest liquid digital savings accounts or money market funds. Provide their realistic, current Estimated Annual Interest Rate and their official website "url".
 6. For 'Investment Options' (Malaysian Shares/Stocks): Provide 7-10 balanced options. For each share, research and provide:
-   - "price_per_unit": Current share price in RM (e.g., 5.03 for Public Bank).
-   - "cost_per_lot": Calculate total RM for 1 lot (100 units) including HIGHLY REALISTIC fees.
-     * Calculation Guide: (Price * 100) + Brokerage (Min RM8 or 0.10%) + Stamp Duty (RM1.50 per RM1000) + Clearing Fee (0.03%) + SST on brokerage (8%).
-   - REQUIREMENT: You MUST include a mix of "Big Cap" (e.g., Maybank, Tenaga) and "Mid/Small Cap" (e.g., MyEG, Capital A, Dialog). Ensure at least 4 options have a price_per_unit UNDER RM 3.00 to ensure the strategy is accessible for lower budgets.
-   - "roe": Return on Equity (%).
-   - "dividend_yield": Annual Dividend Yield (%).
-   - Official "url" for the share page or financial info.
-   - "estimated_rate": Realistic average annual return expectation (%) including capital growth and dividends.
-7. CRITICAL ACTIONABLE SUGGESTION: In 'analysis.strategy_summary', you MUST provide a concrete, step-by-step monthly action. 
+    - "price_per_unit": Current share price in RM (e.g., 5.03 for Public Bank).
+    - "cost_per_lot": Calculate total RM for 100 units/lots.
+      * ASNB Rules:
+        * Fixed Price (ASM/ASB): RM 1.00/unit. Zero fees. Total RM 100.00.
+        * Variable Price (ASN Equity/Sara): Use current NAV price per unit. Include 3.5% to 5% Sales Charge + 8% SST ON THE SALES CHARGE. Total = (Price * 100) + (Price * 100 * Charge * 1.08).
+      * Stock Rules: Use current Market Price. Include Brokerage (min RM8 or 0.1%), Stamp Duty (RM1.50 per RM1000), Clearing Fee (0.03%), and 8% SST on brokerage.
+    - REQUIREMENT: You MUST include a mix of "Big Cap" (e.g., Maybank, Tenaga) and "Mid/Small Cap" (e.g., MyEG, Capital A, Dialog). Ensure at least 4 options have a price_per_unit UNDER RM 3.00 to ensure the strategy is accessible for lower budgets.
+    - "roe": Return on Equity (%).
+    - "dividend_yield": Annual Dividend Yield (%).
+    - "url": MANDATORY OFFICIAL DEEP-LINK.
+      * For Bursa Stocks: Use \`https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=[CODE]\` where [CODE] is the 4-digit numeric code (e.g., 1295 for Public Bank).
+      * For ASNB: Link directly to the specific fund's product page on asnb.com.my (e.g., the specific ASN Sara or ASM page), NOT just the homepage.
+7. CRITICAL ACTIONABLE SUGGESTION: In 'analysis.strategy_summary', you MUST provide a concrete, step-by-step monthly action.
    Calculation: Determine the "Optimized Monthly Contribution" needed to reach the target RM within the timeline given the weighted returns.
    Example Suggestion Format: "To reach your RM5000 goal, save RM600 monthly in [Savings Option Name] and purchase 1 lot of [Stock Name] (est. cost RM400) every month. This combined RM1000 monthly effort is reduced from the linear RM1050 because of the expected 6% yield helping you reach the finish line faster."
    Ensure the math for "number of lots" is a whole number (e.g., if RM400 is allocated to growth and stock cost/lot is RM380, suggest 1 lot).
 
 Required JSON Structure:
-{
-  "allocation": {
-    "savings_percent": number,
-    "dividend_percent": number,
-    "etf_percent": number,
-    "growth_percent": number
-  },
-  "identified_instruments": [
-    {
-      "category": "Savings / Conservative",
-      "examples": [
-        { "name": "Option 1 Name", "estimated_rate": 3.50, "url": "https://example.com" },
-        { "name": "Option 2 Name", "estimated_rate": 3.00, "url": "https://example.com" },
-        { "name": "Option 3 Name", "estimated_rate": 4.10, "url": "https://example.com" },
-        { "name": "Option 4 Name", "estimated_rate": 2.80, "url": "https://example.com" },
-        { "name": "Option 5 Name", "estimated_rate": 3.20, "url": "https://example.com" }
-      ]
+  {
+    "allocation": {
+      "savings_percent": number,
+        "dividend_percent": number,
+          "etf_percent": number,
+            "growth_percent": number
     },
-    {
-      "category": "Investments / Growth",
-      "examples": [
-        { 
-          "name": "Stock Name", 
-          "price_per_unit": 5.20,
-          "cost_per_lot": 525.00,
-          "roe": 15.5,
-          "dividend_yield": 4.2,
-          "estimated_rate": 8.00, 
-          "url": "https://example.com" 
-        }
-      ]
-    }
-  ],
-  "return_assumptions": {
-    "savings_range": [low, high],
-    "dividend_range": [low, high],
-    "etf_range": [low, high],
-    "growth_range": [low, high]
-  },
-  "analysis": {
-    "strategy_summary": "A 1-2 sentence overview referencing the strategy objective.",
-    "risk_explanation": "Explanation of risk.",
-    "liquidity_commentary": "Comment on liquidity.",
-    "goal_feasibility": "Is the goal realistic?",
-    "adjustment_suggestion": "Suggested tweaks if any. Also explicitly explain the split percentage here (e.g. This 40/60 split...)."
-  },
-  "disclaimer": "This allocation is a simulation for educational purposes and does not constitute financial advice. Examples of instruments commonly used for this strategy are illustrative only. Never guarantee returns."
-}
-`;
+    "identified_instruments": [
+      {
+        "category": "Savings / Conservative",
+        "examples": [
+          { "name": "Option 1 Name", "estimated_rate": 3.50, "url": "https://example.com" },
+          { "name": "Option 2 Name", "estimated_rate": 3.00, "url": "https://example.com" },
+          { "name": "Option 3 Name", "estimated_rate": 4.10, "url": "https://example.com" },
+          { "name": "Option 4 Name", "estimated_rate": 2.80, "url": "https://example.com" },
+          { "name": "Option 5 Name", "estimated_rate": 3.20, "url": "https://example.com" }
+        ]
+      },
+      {
+        "category": "Investments / Growth",
+        "examples": [
+          {
+            "name": "Stock Name",
+            "price_per_unit": 5.20,
+            "cost_per_lot": 525.00,
+            "roe": 15.5,
+            "dividend_yield": 4.2,
+            "estimated_rate": 8.00,
+            "url": "https://example.com"
+          }
+        ]
+      }
+    ],
+      "return_assumptions": {
+      "savings_range": [low, high],
+        "dividend_range": [low, high],
+          "etf_range": [low, high],
+            "growth_range": [low, high]
+    },
+    "analysis": {
+      "strategy_summary": "A 1-2 sentence overview referencing the strategy objective.",
+        "risk_explanation": "Explanation of risk.",
+          "liquidity_commentary": "Comment on liquidity.",
+            "goal_feasibility": "Is the goal realistic?",
+              "adjustment_suggestion": "Suggested tweaks if any. Also explicitly explain the split percentage here (e.g. This 40/60 split...)."
+    },
+    "disclaimer": "This allocation is a simulation for educational purposes and does not constitute financial advice. Examples of instruments commonly used for this strategy are illustrative only. Never guarantee returns."
+  }
+  `;
 
   if (!ai.models.generateContent) {
     throw new Error("SDK mismatch: generateContent not found on ai.models");
   }
 
   const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
-    contents: [{ role: "user", parts: [{ text: prompt }] }],
+    model: 'gemini-2.0-flash',
+    tools: [{ googleSearch: {} }],
+    contents: [{ role: "user", parts: [{ text: prompt + `\n\nCRITICAL: Today's date is ${new Date().toLocaleDateString()}. You MUST search for the absolute latest live market prices for Bursa Malaysia stocks and current ASNB NAVs before responding.` }] }],
   });
 
   try {

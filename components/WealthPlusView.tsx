@@ -1047,12 +1047,12 @@ const WealthPlusView: React.FC<WealthPlusViewProps> = ({ userProfile, updateProf
                                                 </div>
                                                 <div className="mt-6 flex flex-col gap-3">
                                                     <a
-                                                        href={optionUrl}
+                                                        href={optionUrl !== "#" ? optionUrl : `https://www.google.com/search?q=${encodeURIComponent(optionName + ' digital bank account malaysia')}`}
                                                         target="_blank"
                                                         rel="noreferrer"
-                                                        className="w-full py-4 flex items-center justify-center rounded-2xl font-bold text-base transition-all bg-[#0b101b] border border-slate-700 hover:border-emerald-500/50 hover:text-emerald-400 text-slate-300 active:scale-95"
+                                                        className="w-full py-4 flex items-center justify-center rounded-2xl font-bold text-sm transition-all bg-[#0b101b] border border-slate-700 hover:border-emerald-500/50 hover:text-emerald-400 text-slate-300 active:scale-95 shadow-sm"
                                                     >
-                                                        Learn More <ChevronRight size={18} className="ml-1 -mt-0.5" />
+                                                        Learn More <ChevronRight size={18} className="ml-1" />
                                                     </a>
                                                     <button
                                                         onClick={() => setSelectedSavingsOption(idx)}
@@ -1092,16 +1092,17 @@ const WealthPlusView: React.FC<WealthPlusViewProps> = ({ userProfile, updateProf
                                     {(() => {
                                         const aiOptions = strategyData?.identified_instruments?.[1]?.examples || [];
                                         const budgetFallbacks = [
-                                            { name: "Maybank Berhad", estimated_rate: 6.5, price_per_unit: 10.62, cost_per_lot: 1073.50, roe: 14.5, dividend_yield: 5.2, url: "https://www.maybank2u.com.my" },
-                                            { name: "Tenaga Nasional", estimated_rate: 5.0, price_per_unit: 14.38, cost_per_lot: 1451.20, roe: 10.2, dividend_yield: 3.5, url: "https://www.tnb.com.my" },
-                                            { name: "Public Bank", estimated_rate: 5.5, price_per_unit: 5.03, cost_per_lot: 513.29, roe: 13.5, dividend_yield: 4.5, url: "https://www.publicbank.com.my" },
-                                            { name: "Telekom Malaysia", estimated_rate: 4.0, price_per_unit: 6.92, cost_per_lot: 703.15, roe: 12.0, dividend_yield: 3.8, url: "https://www.tm.com.my" },
-                                            { name: "Axiata Group", estimated_rate: 4.5, price_per_unit: 2.85, cost_per_lot: 295.80, roe: 6.5, dividend_yield: 4.2, url: "https://www.axiata.com" },
-                                            { name: "Dialog Group", estimated_rate: 4.8, price_per_unit: 2.22, cost_per_lot: 232.00, roe: 11.2, dividend_yield: 2.4, url: "https://www.dialogasia.com" },
-                                            { name: "YTL Corporation", estimated_rate: 4.2, price_per_unit: 2.15, cost_per_lot: 225.00, roe: 8.5, dividend_yield: 3.0, url: "https://www.ytl.com.my" },
-                                            { name: "Genting Malaysia", estimated_rate: 5.2, price_per_unit: 2.72, cost_per_lot: 283.00, roe: 7.2, dividend_yield: 5.5, url: "https://www.gentingmalaysia.com" },
-                                            { name: "Capital A (AirAsia)", estimated_rate: 7.0, price_per_unit: 0.98, cost_per_lot: 108.50, roe: -5.0, dividend_yield: 0.0, url: "https://www.capitala.com" },
-                                            { name: "MyEG Services", estimated_rate: 5.8, price_per_unit: 0.88, cost_per_lot: 98.20, roe: 22.0, dividend_yield: 1.8, url: "https://www.myeg.com.my" }
+                                            { name: "ASNB (ASM/ASB - Fixed Price)", estimated_rate: 5.25, price_per_unit: 1.00, cost_per_lot: 100.00, roe: 0, dividend_yield: 5.25, url: "https://www.asnb.com.my/v3/pages/products/fixed-price-funds/" },
+                                            { name: "ASNB ASN Sara 1 (Variable)", estimated_rate: 4.80, price_per_unit: 1.15, cost_per_lot: 119.34, roe: 0, dividend_yield: 4.5, url: "https://www.asnb.com.my/v3/pages/products/variable-price-funds/asnsara1/" },
+                                            { name: "Public Bank Berhad", estimated_rate: 5.5, price_per_unit: 5.04, cost_per_lot: 514.29, roe: 13.5, dividend_yield: 4.5, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=1295" },
+                                            { name: "Maybank Berhad", estimated_rate: 6.5, price_per_unit: 10.62, cost_per_lot: 1073.50, roe: 14.5, dividend_yield: 5.2, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=1155" },
+                                            { name: "Tenaga Nasional", estimated_rate: 5.0, price_per_unit: 14.38, cost_per_lot: 1451.20, roe: 10.2, dividend_yield: 3.5, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=5347" },
+                                            { name: "Axiata Group", estimated_rate: 4.5, price_per_unit: 2.85, cost_per_lot: 295.80, roe: 6.5, dividend_yield: 4.2, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=6888" },
+                                            { name: "Dialog Group", estimated_rate: 4.8, price_per_unit: 2.22, cost_per_lot: 232.00, roe: 11.2, dividend_yield: 2.4, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=7277" },
+                                            { name: "YTL Corporation", estimated_rate: 4.2, price_per_unit: 2.15, cost_per_lot: 225.00, roe: 8.5, dividend_yield: 3.0, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=4677" },
+                                            { name: "Genting Malaysia", estimated_rate: 5.2, price_per_unit: 2.72, cost_per_lot: 283.00, roe: 7.2, dividend_yield: 5.5, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=4715" },
+                                            { name: "Capital A (AirAsia)", estimated_rate: 7.0, price_per_unit: 0.98, cost_per_lot: 108.50, roe: -5.0, dividend_yield: 0.0, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=5099" },
+                                            { name: "MyEG Services", estimated_rate: 5.8, price_per_unit: 0.88, cost_per_lot: 98.20, roe: 22.0, dividend_yield: 1.8, url: "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=0138" }
                                         ];
 
                                         // Merge and Deduplicate by name
@@ -1218,17 +1219,28 @@ const WealthPlusView: React.FC<WealthPlusViewProps> = ({ userProfile, updateProf
 
                                                                 {/* Fee Breakdown Tooltip */}
                                                                 <div className="absolute bottom-full left-0 right-0 mb-3 p-4 bg-[#0f172a] border border-slate-700 rounded-xl shadow-2xl opacity-0 invisible group-hover/lot:opacity-100 group-hover/lot:visible transition-all duration-300 z-[100] backdrop-blur-xl">
-                                                                    <div className="relative z-10 text-left space-y-2">
-                                                                        <p className="text-emerald-400 font-bold text-sm mb-2">Estimated Fee Breakdown</p>
-                                                                        <div className="grid grid-cols-2 text-[10px] gap-y-1">
+                                                                    <div className="relative z-10 text-left space-y-3">
+                                                                        <p className="text-emerald-400 font-bold text-base mb-2">Estimated Fee Breakdown</p>
+                                                                        <div className="grid grid-cols-2 text-sm gap-y-2">
                                                                             <span className="text-slate-400">Net Value:</span>
                                                                             <span className="text-right text-white">RM{(pricePerUnit * 100).toFixed(2)}</span>
-                                                                            <span className="text-slate-400">Brokerage (Min RM8):</span>
-                                                                            <span className="text-right text-white">RM8.00</span>
-                                                                            <span className="text-slate-400">Stamp Duty (RM1.50/k):</span>
-                                                                            <span className="text-right text-white">RM1.50</span>
-                                                                            <span className="text-slate-400">Clearing & SST:</span>
-                                                                            <span className="text-right text-white">RM{(costPerLot - (pricePerUnit * 100) - 9.5).toFixed(2)}</span>
+
+                                                                            {optionName.includes('ASNB') ? (
+                                                                                <>
+                                                                                    <span className="text-slate-400">Sales Charge (incl. SST):</span>
+                                                                                    <span className="text-right text-white">RM{Math.max(0, costPerLot - (pricePerUnit * 100)).toFixed(2)}</span>
+                                                                                </>
+                                                                            ) : (
+                                                                                <>
+                                                                                    <span className="text-slate-400">Brokerage (Min RM8):</span>
+                                                                                    <span className="text-right text-white">RM8.00</span>
+                                                                                    <span className="text-slate-400">Stamp Duty (RM1.50/k):</span>
+                                                                                    <span className="text-right text-white">RM1.50</span>
+                                                                                    <span className="text-slate-400">Clearing & SST:</span>
+                                                                                    <span className="text-right text-white">RM{Math.max(0, costPerLot - (pricePerUnit * 100) - 9.5).toFixed(2)}</span>
+                                                                                </>
+                                                                            )}
+
                                                                             <div className="col-span-2 h-px bg-slate-700 my-1"></div>
                                                                             <span className="text-emerald-400 font-bold">Total Cost:</span>
                                                                             <span className="text-right text-emerald-400 font-bold">{formatRM(costPerLot)}</span>
@@ -1278,12 +1290,12 @@ const WealthPlusView: React.FC<WealthPlusViewProps> = ({ userProfile, updateProf
                                                         )}
 
                                                         <a
-                                                            href={`https://www.google.com/search?q=${encodeURIComponent(optionName + ' share price bursa malaysia')}`}
+                                                            href={optionUrl !== "#" ? optionUrl : `https://www.google.com/search?q=${encodeURIComponent(optionName + ' share price bursa malaysia')}`}
                                                             target="_blank"
                                                             rel="noreferrer"
                                                             className="w-full py-4 flex items-center justify-center rounded-2xl font-bold text-sm transition-all bg-[#0b101b] border border-slate-800 hover:border-slate-600 hover:text-white text-slate-400 active:scale-95 shadow-sm"
                                                         >
-                                                            View Market Data <ChevronRight size={18} className="ml-1" />
+                                                            View Official Data <ChevronRight size={18} className="ml-1" />
                                                         </a>
                                                     </div>
                                                 </div>
