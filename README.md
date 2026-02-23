@@ -1,4 +1,7 @@
-# CostPilot 🚀
+<div align="center">
+  <img src="public/assets/costpilotgithublogo.png" alt="CostPilot Logo" width="800">
+</div>
+
 
 ## 1. Introduction
 CostPilot is a financial optimization platform designed to help users manage their money smarter. Beyond tracking expenses, it intelligently optimizes across **transport, lifestyle, and accommodation**, while also integrating **subsidies you may qualify for but didn’t know existed**. With AI-guided savings and investment options, CostPilot empowers users to set **smart goals** and achieve wealth targets with personalized strategies.
