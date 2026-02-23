@@ -94,12 +94,31 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
     const food = Math.max(0, profile.food || 0);
     const debt = Math.max(0, profile.debt || 0);
     const subs = Math.max(0, profile.subscriptions || 0);
-    // Combine both savings pools for the buffer calculation
-    const totalSavings = Math.max(0, (profile.emergencySavings || 0) + (profile.savings || 0));
+    const generalSavings = Math.max(0, profile.savings || 0);
 
-    const totalExpenses = rent + utilities + transport + food + debt + subs;
+    // Smart Goals: committed monthly contribution per goal
+    const smartGoalMonthly = (profile.smartGoals || []).reduce(
+      (sum: number, g: any) => sum + (g.targetAmount > 0 && g.deadlineMonths > 0 ? g.targetAmount / g.deadlineMonths : 0),
+      0
+    );
 
-    // --- Expense Ratio sub-score: 0=low stress → 100=high stress ---
+    // Wealth+ strategies: committed monthly investment allocations
+    const wealthPlusMonthly = (profile.wealthPlusStrategies || []).reduce(
+      (sum: number, s: any) => sum + (s.monthlyAmount || 0),
+      0
+    );
+
+    // Total monthly committed outflow:
+    //   core bills + smart goal contributions + wealth+ allocations
+    //   (profile.savings is a balance, not a monthly bill — it goes into the buffer below)
+    const totalExpenses = rent + utilities + transport + food + debt + subs
+      + generalSavings + smartGoalMonthly + wealthPlusMonthly;
+
+    // Buffer = emergency savings only (the safety net you can draw on).
+    // General savings is now a monthly commitment above, not a reserve.
+    const buffer = Math.max(0, profile.emergencySavings || 0);
+
+    // --- Expense Ratio sub-score: 0=no stress → 100=critical ---
     const expenseRatio = income > 0 ? totalExpenses / income : 999;
     let expenseSub: number;
     if (expenseRatio <= 0.5) expenseSub = lerp(expenseRatio, 0, 0.5, 0, 10);
@@ -108,8 +127,8 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
     else if (expenseRatio <= 1.0) expenseSub = lerp(expenseRatio, 0.85, 1.0, 60, 85);
     else expenseSub = Math.min(100, lerp(expenseRatio, 1.0, 1.2, 85, 100));
 
-    // --- Buffer months sub-score: more buffer → less stress ---
-    const bufferMonths = totalExpenses > 0 ? totalSavings / totalExpenses : 12;
+    // --- Buffer months: how many months saved ÷ monthly outflow ---
+    const bufferMonths = totalExpenses > 0 ? buffer / totalExpenses : 12;
     let bufferSub: number;
     if (bufferMonths >= 6) bufferSub = lerp(bufferMonths, 6, 12, 10, 0);
     else if (bufferMonths >= 3) bufferSub = lerp(bufferMonths, 3, 6, 35, 10);
@@ -124,17 +143,16 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
     else if (debtRatio <= 0.35) debtSub = lerp(debtRatio, 0.2, 0.35, 35, 70);
     else debtSub = Math.min(100, lerp(debtRatio, 0.35, 0.5, 70, 100));
 
-    // Weighted stress score: 0 = stress-free, 100 = critical (matches backend weights)
+    // Weighted stress score (mirrors backend weights)
     const raw = 0.55 * expenseSub + 0.25 * bufferSub + 0.20 * debtSub;
     const score = Math.min(100, Math.max(0, Math.round(raw)));
 
-    // Risk bands (match backend RISK_BANDS: 0-33 Low, 34-66 Moderate, 67-100 High)
+    // Risk bands (0-33 Low, 34-66 Moderate, 67-100 Critical)
     let category = "Critical";
     let color = "bg-red-500";
     let textColor = "text-red-400";
     if (score <= 33) { category = "Low Stress"; color = "bg-emerald-500"; textColor = "text-emerald-400"; }
     else if (score <= 66) { category = "Moderate Stress"; color = "bg-amber-500"; textColor = "text-amber-400"; }
-    // score > 66 → Critical (defaults above)
 
     return { score, category, color, textColor };
   };
@@ -228,7 +246,7 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
   }
 
   const goalSegments = smartGoals.map((goal, index) => ({
-    label: goal.name.toUpperCase(),
+    label: `SMART GOAL (${goal.name.toUpperCase()})`,
     value: goal.targetAmount / goal.deadlineMonths,
     color: [
       '#14b8a6', // Teal
@@ -239,7 +257,7 @@ const DashboardView: React.FC<{ userProfile: UserProfile; updateProfile?: (profi
 
   const activeStrategies = userProfile.wealthPlusStrategies || [];
   const strategySegments = activeStrategies.map((s, index) => ({
-    label: s.label.toUpperCase(),
+    label: `WEALTH+ (${s.label.toUpperCase()})`,
     value: s.monthlyAmount,
     color: [
       '#f59e0b', // Amber
